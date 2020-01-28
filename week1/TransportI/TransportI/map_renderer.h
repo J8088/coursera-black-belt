@@ -14,7 +14,7 @@ namespace SvgMap {
     struct Bus {
         std::string name;
         std::vector<std::shared_ptr<Stop>> stops;
-        bool is_roundtrip;
+        std::vector<std::shared_ptr<Stop>> endpoints;
         Svg::Color color = Svg::NoneColor;
     };
 }
@@ -57,12 +57,14 @@ private:
     MinMaxGeoCoords GetMinMaxGeoCoords(const Descriptions::StopsDict& stops_dict) const;
     double GetZoomCoef(MinMaxGeoCoords geo_coords) const;
 
-    void RenderBusLinesTo(Svg::Document& svg) const;
-    void RenderBusLabelsTo(Svg::Document& svg) const;
-    void RenderStopPointsTo(Svg::Document& svg) const;
-    void RenderStopLabelsTo(Svg::Document& svg) const;
+    void RenderBusLines(Svg::Document& svg) const;
+    void RenderBusLabels(Svg::Document& svg) const;
+    void RenderStopPoints(Svg::Document& svg) const;
+    void RenderStopLabels(Svg::Document& svg) const;
 
     std::map<std::string, std::shared_ptr<SvgMap::Stop>> stops_;
     std::map<std::string, std::shared_ptr<SvgMap::Bus>> buses_;
     RenderSettings render_settings_;
+
+    static const std::unordered_map<std::string, void (MapRenderer::*)(Svg::Document&) const> LAYER_ACTIONS;
 };

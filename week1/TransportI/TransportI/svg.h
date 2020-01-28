@@ -16,8 +16,7 @@ namespace Svg {
 		uint8_t red = 0, green = 0, blue = 0;
 	};
 
-	struct Rgba {
-		uint8_t red = 0, green = 0, blue = 0;
+	struct Rgba : Rgb {
 		double alpha = 0.0;
 	};
 
